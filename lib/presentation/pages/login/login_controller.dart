@@ -1,6 +1,7 @@
 import 'package:app_phrases/core/di/injection_container.dart';
 import 'package:app_phrases/domain/entities/user_entity.dart';
 import 'package:app_phrases/domain/repositories/auth_repository.dart';
+import 'package:app_phrases/domain/usecases/login_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'login_controller.g.dart';
@@ -8,7 +9,7 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  final AuthRepository repository = get.get();
+  final LoginUseCase useCase = LoginUseCase();
   final GlobalKey<FormState> globalKey = GlobalKey();
   final TextEditingController ctlEmail = TextEditingController();
   final TextEditingController ctlPassword = TextEditingController();
@@ -24,7 +25,7 @@ abstract class _LoginControllerBase with Store {
     logging = true;
     try {
       final result =
-          await repository.createAccountWithEmailPassword(email, password);
+          await useCase.createAccountWithEmailPassword(email, password);
       return result;
     } catch (_) {
       rethrow;
@@ -36,7 +37,7 @@ abstract class _LoginControllerBase with Store {
   Future<UserEntity> loginEmailPassword(String email, String password) async {
     logging = true;
     try {
-      final result = await repository.loginWithEmailPassoword(email, password);
+      final result = await useCase.loginWithEmailPassoword(email, password);
       return result;
     } catch (_) {
       rethrow;
