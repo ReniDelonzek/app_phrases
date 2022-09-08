@@ -18,8 +18,11 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final result =
           await authDatasource.createAccountWithEmailPassword(email, password);
-      await remoteDatasource.updateTokenByUser((await getToken())!);
-      return result;
+      if (await remoteDatasource.updateTokenByUser((await getToken())!)) {
+        return result;
+      } else {
+        throw ServerError();
+      }
     } catch (error, stackTrace) {
       if (error is AlreadyExistsAccountException) {
         throw AlreadyExistsEmailError(stackTrace: stackTrace);
@@ -58,6 +61,7 @@ class AuthRepositoryImpl implements AuthRepository {
     return authDatasource.getToken(forceRefresh: forceRefresh);
   }
 
+  @override
   Future<bool> isLogged() {
     return authDatasource.isLogged();
   }

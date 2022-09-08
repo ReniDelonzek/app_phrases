@@ -7,4 +7,6 @@ abstract class AuthRepository {
   Future<UserEntity> loginWithEmailPassoword(String email, String password);
 
   Future<String?> getToken({bool forceRefresh});
+
+  Future<bool> isLogged();
 }

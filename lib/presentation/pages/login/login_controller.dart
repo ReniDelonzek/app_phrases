@@ -1,6 +1,4 @@
-import 'package:app_phrases/core/di/injection_container.dart';
 import 'package:app_phrases/domain/entities/user_entity.dart';
-import 'package:app_phrases/domain/repositories/auth_repository.dart';
 import 'package:app_phrases/domain/usecases/login_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
