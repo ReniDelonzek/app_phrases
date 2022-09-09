@@ -75,6 +75,12 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             controller: _controller.ctlPassword,
                             textInputAction: TextInputAction.done,
+                            validator: (text) {
+                              if (text!.trim().length < 6) {
+                                return 'A senha deve ter no mínimo 6 caracteres';
+                              }
+                              return null;
+                            },
                             onFieldSubmitted: (_) {
                               _passFocus.unfocus();
                               _createAccountEmailPassword();
@@ -146,6 +152,9 @@ class _LoginPageState extends State<LoginPage> {
         } else if (error is WeakPasswordError) {
           UtilsWidgets.showSnack(context,
               'A senha inserida é muito simples, use uma senha mais complexa');
+        } else {
+          UtilsWidgets.showSnack(
+              context, 'Ops, houve uma falha ao criar a conta');
         }
       }
     }
@@ -169,6 +178,9 @@ class _LoginPageState extends State<LoginPage> {
           UtilsWidgets.showSnack(context,
               'Não foi encontrada nenhuma conta com esse usuário, vamos criar uma?');
           _controller.loginMode = false;
+        } else {
+          UtilsWidgets.showSnack(
+              context, 'Ops, houve uma falha ao fazer o login');
         }
       }
     }
