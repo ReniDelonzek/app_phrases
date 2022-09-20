@@ -13,4 +13,8 @@ class LoginUseCase {
   Future<UserEntity> loginWithEmailPassoword(String email, String password) {
     return repository.loginWithEmailPassoword(email, password);
   }
+
+  Future<bool> logout() {
+    return repository.logOut();
+  }
 }

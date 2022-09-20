@@ -65,4 +65,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<bool> isLogged() {
     return authDatasource.isLogged();
   }
+
+  @override
+  Future<bool> logOut() {
+    return authDatasource.logOut();
+  }
 }

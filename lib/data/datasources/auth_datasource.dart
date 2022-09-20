@@ -11,6 +11,8 @@ abstract class AuthDatasource {
   Future<String?> getToken({bool forceRefresh = false});
 
   Future<bool> isLogged();
+
+  Future<bool> logOut();
 }
 
 class AuthDatasourceFirebase implements AuthDatasource {
@@ -74,5 +76,11 @@ class AuthDatasourceFirebase implements AuthDatasource {
   @override
   Future<bool> isLogged() async {
     return FirebaseAuth.instance.currentUser != null;
+  }
+
+  @override
+  Future<bool> logOut() async {
+    await FirebaseAuth.instance.signOut();
+    return true;
   }
 }

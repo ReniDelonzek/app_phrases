@@ -9,4 +9,6 @@ abstract class AuthRepository {
   Future<String?> getToken({bool forceRefresh});
 
   Future<bool> isLogged();
+
+  Future<bool> logOut();
 }

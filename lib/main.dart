@@ -13,8 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  bool isLogged = false;
-  await get.get<AuthRepository>().isLogged();
+  bool isLogged = await get.get<AuthRepository>().isLogged();
   runApp(MaterialApp(
     theme: ThemeData(primaryColor: Colors.red),
     home: isLogged ? const HomePage() : const LoginPage(),

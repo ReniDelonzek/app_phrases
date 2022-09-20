@@ -1,5 +1,7 @@
 import 'package:app_phrases/domain/entities/phrase.dart';
+import 'package:app_phrases/domain/usecases/login_usecase.dart';
 import 'package:app_phrases/presentation/pages/home/home_controller.dart';
+import 'package:app_phrases/presentation/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
@@ -22,8 +24,8 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
       ),
       drawer: Drawer(
-        child: Column(children: const [
-          UserAccountsDrawerHeader(
+        child: Column(children: [
+          const UserAccountsDrawerHeader(
             accountName: Text(
               '',
               style: TextStyle(color: Colors.white),
@@ -32,6 +34,14 @@ class _HomePageState extends State<HomePage> {
             currentAccountPicture: Icon(Icons.person),
             decoration: BoxDecoration(color: Colors.black),
           ),
+          ListTile(
+              title: const Text('Sair'),
+              leading: const Icon(Icons.logout),
+              onTap: () async {
+                await LoginUseCase().logout();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const LoginPage()));
+              })
         ]),
       ),
       body: Column(
